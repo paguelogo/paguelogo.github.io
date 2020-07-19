@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Solicitação de Transferência · </title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="A solicitação de transferência permite retirar uma quantia de dinheiro da sua conta digital para a sua conta bancária ou para conta bancária de terceiros."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Solicitação de Transferência · "/><meta property="og:type" content="website"/><meta property="og:url" content="https://paguelogo.github.io/documentacao/"/><meta property="og:description" content="A solicitação de transferência permite retirar uma quantia de dinheiro da sua conta digital para a sua conta bancária ou para conta bancária de terceiros."/><meta property="og:image" content="https://paguelogo.github.io/documentacao/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://paguelogo.github.io/documentacao/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/documentacao/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/documentacao/js/scrollSpy.js"></script><link rel="stylesheet" href="/documentacao/css/main.css"/><script src="/documentacao/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/documentacao/"><img class="logo" src="/documentacao/img/paguelogo-logo.png" alt=""/><h2 class="headerTitleWithLogo"></h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/documentacao/docs/introducao" target="_self">Documentação</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>API - REST</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Início</h3><ul class=""><li class="navListItem"><a class="navItem" href="/documentacao/docs/introducao">Introdução</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">API - REST</h3><ul class=""><li class="navListItem"><a class="navItem" href="/documentacao/docs/autenticacao">Autenticação</a></li><li class="navListItem"><a class="navItem" href="/documentacao/docs/recuperar-senha">Recuperar Senha</a></li><li class="navListItem"><a class="navItem" href="/documentacao/docs/envio-email-contato">Envio de E-mail (Contato)</a></li><li class="navListItem"><a class="navItem" href="/documentacao/docs/resumo-financeiro">Resumo Financeiro</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/documentacao/docs/solicitacao-transferencia">Solicitação de Transferência</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Solicitação de Transferência</h1></header><article><div><span><p>A solicitação de transferência permite retirar uma quantia de dinheiro da sua conta digital para a sua conta bancária ou para conta bancária de terceiros.</p>
+<blockquote>
+<p>Os formatos monetários serão sempres strings contendo como separadores de milhar o &quot;.&quot; (ponto), e como separador de casas decimais a &quot;,&quot; (vírgula). E também terão geralmente 2 casas decimais.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="solicitação"></a><a href="#solicitação" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Solicitação</h2>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="requisição"></a><a href="#requisição" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requisição</h3>
+<pre><code class="hljs"><span class="hljs-regexp">/transferencia/</span>solicitar
+</code></pre>
+<blockquote>
+<p>O caminho acima é relativo. Consulte o caminho absoluto em <a href="introducao">Introdução</a></p>
+</blockquote>
+<p><strong>Tipo:</strong>  <code>POST</code><br/>
+<strong>Body (JSON):</strong></p>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"valorSolicitado"</span>:<span class="hljs-string">"10.000,00"</span>,
+    <span class="hljs-attr">"tipo"</span>:<span class="hljs-string">"cartao"</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="cabeçalhos-http"></a><a href="#cabeçalhos-http" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cabeçalhos (HTTP)</h4>
+<table>
+    <tr>
+        <th>Content-Type</th>
+        <td>application/json</td>
+    </tr>
+    <tr>
+        <th>Authorization</th>
+        <td>Bearer [token]</td>
+    </tr>
+    <tr>
+        <th>Whois</th>
+        <td>[código único do usuário]</td>
+    </tr>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="atributos"></a><a href="#atributos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Atributos</h4>
+<table>
+<thead>
+<tr><th style="text-align:center">Nome</th><th>Formato</th><th>Valores Possíveis</th><th>Observação</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center">valorSolicitado</td><td>99.999,99</td><td></td><td>Valor que deseja transferir para conta bancária</td></tr>
+<tr><td style="text-align:center">tipo</td><td></td><td>cartao, boleto</td><td>Tipo de conta digital da paguelogo que será retirado o dinheiro</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="resposta"></a><a href="#resposta" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resposta</h3>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"data"</span>: {
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4519"</span>,
+        <span class="hljs-attr">"valorSolicitado"</span>: <span class="hljs-string">"10.000,00"</span>,
+        <span class="hljs-attr">"dataSolicitacao"</span>: <span class="hljs-string">"18/07/2020"</span>,
+        <span class="hljs-attr">"dataTransferencia"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"dataCancelamento"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"motivoCancelamento"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"situacao"</span>: <span class="hljs-string">"pendente"</span>,
+        <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"cartao"</span>,
+        <span class="hljs-attr">"nomeSolicitante"</span>: <span class="hljs-string">"Dígito Global"</span>,
+        <span class="hljs-attr">"cpfCnpjSolicitante"</span>: <span class="hljs-string">"42107780000113"</span>,
+        <span class="hljs-attr">"contaTransferencia"</span>: {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"265"</span>,
+            <span class="hljs-attr">"numeroAgencia"</span>: <span class="hljs-string">"1234"</span>,
+            <span class="hljs-attr">"digitoAgencia"</span>: <span class="hljs-string">"4"</span>,
+            <span class="hljs-attr">"numeroConta"</span>: <span class="hljs-string">"4321"</span>,
+            <span class="hljs-attr">"digitoConta"</span>: <span class="hljs-string">"1"</span>,
+            <span class="hljs-attr">"banco"</span>: {
+                <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5"</span>,
+                <span class="hljs-attr">"codigo"</span>: <span class="hljs-string">"237"</span>,
+                <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"BRADESCO"</span>
+            },
+            <span class="hljs-attr">"titular"</span>: {
+                <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5023"</span>,
+                <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"Dígito Global"</span>,
+                <span class="hljs-attr">"nomeSocial"</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">"cpfCnpj"</span>: <span class="hljs-string">"42107780000113"</span>,
+                <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"juridica"</span>,
+                <span class="hljs-attr">"dataNascimento"</span>: <span class="hljs-literal">null</span>,
+                <span class="hljs-attr">"email"</span>: <span class="hljs-string">"dg@dg.com"</span>
+            }
+        }
+    },
+    <span class="hljs-attr">"responseStatus"</span>: [
+        {
+            <span class="hljs-attr">"status"</span>: <span class="hljs-string">"ok"</span>,
+            <span class="hljs-attr">"mensagem"</span>: <span class="hljs-string">"Sucesso!"</span>
+        }
+    ]
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="a-nameatributos_anchoraatributos"></a><a href="#a-nameatributos_anchoraatributos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><a name="atributos_anchor"></a>Atributos</h4>
+<table>
+<thead>
+<tr><th>Nome</th><th>Formato</th><th>Valores Possíveis</th><th>Observação</th></tr>
+</thead>
+<tbody>
+<tr><td>id</td><td></td><td></td><td>Código interno do sistema de identificação única</td></tr>
+<tr><td>valorSolicitado</td><td>99.999,99</td><td></td><td></td></tr>
+<tr><td>dataSolicitacao</td><td>dd/MM/yyyy</td><td></td><td></td></tr>
+<tr><td>dataTransferencia</td><td>dd/MM/yyyy</td><td></td><td></td></tr>
+<tr><td>dataCancelamento</td><td>dd/MM/yyyy</td><td></td><td></td></tr>
+<tr><td>motivoCancelamento</td><td>Texto Livre</td><td></td><td></td></tr>
+<tr><td>situacao</td><td></td><td>pendente, cancelado, transferido</td><td></td></tr>
+<tr><td>tipo</td><td></td><td>cartao, boleto</td><td>senha do usuário cadastrada no sistema</td></tr>
+<tr><td>nomeSolicitante</td><td></td><td></td><td>senha do usuário cadastrada no sistema</td></tr>
+<tr><td>cpfCnpjSolicitante</td><td></td><td></td><td>senha do usuário cadastrada no sistema</td></tr>
+<tr><td>contaTransferencia.id</td><td></td><td></td><td>Código interno do sistema de identificação única</td></tr>
+<tr><td>contaTransferencia.numeroAgencia</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.digitoAgencia</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.numeroConta</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.digitoConta</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.banco.id</td><td></td><td></td><td>Código interno do sistema de identificação única</td></tr>
+<tr><td>contaTransferencia.banco.codigo</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.banco.nome</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.id</td><td></td><td></td><td>Código interno do sistema de identificação única</td></tr>
+<tr><td>contaTransferencia.titular.nome</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.nomeSocial</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.cpfCnpj</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.tipo</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.dataNascimento</td><td></td><td></td><td></td></tr>
+<tr><td>contaTransferencia.titular.email</td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<p><br/><br/></p>
+<h2><a class="anchor" aria-hidden="true" id="consulta"></a><a href="#consulta" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Consulta</h2>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="requisição-1"></a><a href="#requisição-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requisição</h3>
+<pre><code class="hljs">/transferencia/pesquisar?inicio=<span class="hljs-number">10</span>/<span class="hljs-number">07</span>/<span class="hljs-number">2020</span>&amp;fim=<span class="hljs-number">01</span>/<span class="hljs-number">09</span>/<span class="hljs-number">2020</span>
+</code></pre>
+<blockquote>
+<p>O caminho acima é relativo. Consulte o caminho absoluto em <a href="introducao">Introdução</a></p>
+</blockquote>
+<p><strong>Tipo:</strong>  <code>GET</code><br/>
+<strong>Body:</strong> <code>Vazio</code></p>
+<h4><a class="anchor" aria-hidden="true" id="cabeçalhos-http-1"></a><a href="#cabeçalhos-http-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cabeçalhos (HTTP)</h4>
+<table>
+    <tr>
+        <th>Authorization</th>
+        <td>Bearer [token]</td>
+    </tr>
+    <tr>
+        <th>Whois</th>
+        <td>[código único do usuário]</td>
+    </tr>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="parâmetros-url"></a><a href="#parâmetros-url" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parâmetros (URL)</h4>
+<table>
+<thead>
+<tr><th>Nome</th><th>Formato</th><th>Valores Possíveis</th><th>Observação</th></tr>
+</thead>
+<tbody>
+<tr><td>inicio</td><td>dd/MM/yyyy</td><td></td><td>Data inicial do período de pesquisa</td></tr>
+<tr><td>fim</td><td>dd/MM/yyyy</td><td></td><td>Data final do período de pesquisa</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="resposta-1"></a><a href="#resposta-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resposta</h3>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"data"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4517"</span>,
+            <span class="hljs-attr">"valorSolicitado"</span>: <span class="hljs-string">"10.000,00"</span>,
+            <span class="hljs-attr">"dataSolicitacao"</span>: <span class="hljs-string">"18/07/2020"</span>,
+            <span class="hljs-attr">"dataTransferencia"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"dataCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"motivoCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"situacao"</span>: <span class="hljs-string">"pendente"</span>,
+            <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"cartao"</span>,
+            <span class="hljs-attr">"nomeSolicitante"</span>: <span class="hljs-string">"Dígito Global"</span>,
+            <span class="hljs-attr">"cpfCnpjSolicitante"</span>: <span class="hljs-string">"42107780000113"</span>,
+            <span class="hljs-attr">"contaTransferencia"</span>: {
+                <span class="hljs-attr">"id"</span>: <span class="hljs-string">"265"</span>,
+                <span class="hljs-attr">"numeroAgencia"</span>: <span class="hljs-string">"1234"</span>,
+                <span class="hljs-attr">"digitoAgencia"</span>: <span class="hljs-string">"4"</span>,
+                <span class="hljs-attr">"numeroConta"</span>: <span class="hljs-string">"4321"</span>,
+                <span class="hljs-attr">"digitoConta"</span>: <span class="hljs-string">"1"</span>,
+                <span class="hljs-attr">"banco"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5"</span>,
+                    <span class="hljs-attr">"codigo"</span>: <span class="hljs-string">"237"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"BRADESCO"</span>
+                },
+                <span class="hljs-attr">"titular"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5023"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"Dígito Global"</span>,
+                    <span class="hljs-attr">"nomeSocial"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"cpfCnpj"</span>: <span class="hljs-string">"42107780000113"</span>,
+                    <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"juridica"</span>,
+                    <span class="hljs-attr">"dataNascimento"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"dg@dg.com"</span>,
+                    <span class="hljs-attr">"endereco"</span>: <span class="hljs-literal">null</span>
+                }
+            }
+        },
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4518"</span>,
+            <span class="hljs-attr">"valorSolicitado"</span>: <span class="hljs-string">"6,00"</span>,
+            <span class="hljs-attr">"dataSolicitacao"</span>: <span class="hljs-string">"18/07/2020"</span>,
+            <span class="hljs-attr">"dataTransferencia"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"dataCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"motivoCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"situacao"</span>: <span class="hljs-string">"pendente"</span>,
+            <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"cartao"</span>,
+            <span class="hljs-attr">"nomeSolicitante"</span>: <span class="hljs-string">"Dígito Global"</span>,
+            <span class="hljs-attr">"cpfCnpjSolicitante"</span>: <span class="hljs-string">"42107780000113"</span>,
+            <span class="hljs-attr">"contaTransferencia"</span>: {
+                <span class="hljs-attr">"id"</span>: <span class="hljs-string">"265"</span>,
+                <span class="hljs-attr">"numeroAgencia"</span>: <span class="hljs-string">"1234"</span>,
+                <span class="hljs-attr">"digitoAgencia"</span>: <span class="hljs-string">"4"</span>,
+                <span class="hljs-attr">"numeroConta"</span>: <span class="hljs-string">"4321"</span>,
+                <span class="hljs-attr">"digitoConta"</span>: <span class="hljs-string">"1"</span>,
+                <span class="hljs-attr">"banco"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5"</span>,
+                    <span class="hljs-attr">"codigo"</span>: <span class="hljs-string">"237"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"BRADESCO"</span>
+                },
+                <span class="hljs-attr">"titular"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5023"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"Dígito Global"</span>,
+                    <span class="hljs-attr">"nomeSocial"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"cpfCnpj"</span>: <span class="hljs-string">"42107780000113"</span>,
+                    <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"juridica"</span>,
+                    <span class="hljs-attr">"dataNascimento"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"dg@dg.com"</span>,
+                    <span class="hljs-attr">"endereco"</span>: <span class="hljs-literal">null</span>
+                }
+            }
+        },
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"4519"</span>,
+            <span class="hljs-attr">"valorSolicitado"</span>: <span class="hljs-string">"7,00"</span>,
+            <span class="hljs-attr">"dataSolicitacao"</span>: <span class="hljs-string">"18/07/2020"</span>,
+            <span class="hljs-attr">"dataTransferencia"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"dataCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"motivoCancelamento"</span>: <span class="hljs-literal">null</span>,
+            <span class="hljs-attr">"situacao"</span>: <span class="hljs-string">"pendente"</span>,
+            <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"cartao"</span>,
+            <span class="hljs-attr">"nomeSolicitante"</span>: <span class="hljs-string">"Dígito Global"</span>,
+            <span class="hljs-attr">"cpfCnpjSolicitante"</span>: <span class="hljs-string">"42107780000113"</span>,
+            <span class="hljs-attr">"contaTransferencia"</span>: {
+                <span class="hljs-attr">"id"</span>: <span class="hljs-string">"265"</span>,
+                <span class="hljs-attr">"numeroAgencia"</span>: <span class="hljs-string">"1234"</span>,
+                <span class="hljs-attr">"digitoAgencia"</span>: <span class="hljs-string">"4"</span>,
+                <span class="hljs-attr">"numeroConta"</span>: <span class="hljs-string">"4321"</span>,
+                <span class="hljs-attr">"digitoConta"</span>: <span class="hljs-string">"1"</span>,
+                <span class="hljs-attr">"banco"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5"</span>,
+                    <span class="hljs-attr">"codigo"</span>: <span class="hljs-string">"237"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"BRADESCO"</span>
+                },
+                <span class="hljs-attr">"titular"</span>: {
+                    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"5023"</span>,
+                    <span class="hljs-attr">"nome"</span>: <span class="hljs-string">"Dígito Global"</span>,
+                    <span class="hljs-attr">"nomeSocial"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"cpfCnpj"</span>: <span class="hljs-string">"42107780000113"</span>,
+                    <span class="hljs-attr">"tipo"</span>: <span class="hljs-string">"juridica"</span>,
+                    <span class="hljs-attr">"dataNascimento"</span>: <span class="hljs-literal">null</span>,
+                    <span class="hljs-attr">"email"</span>: <span class="hljs-string">"dg@dg.com"</span>,
+                    <span class="hljs-attr">"endereco"</span>: <span class="hljs-literal">null</span>
+                }
+            }
+        }
+    ],
+    <span class="hljs-attr">"responseStatus"</span>: []
+}
+</code></pre>
+<blockquote>
+<p>A resposta é um array de objetos JSON contendo os dados da solicitação de transferência. Estes dados estão no mesmo padrão que o exemplificado e explicado em <a href="#atributos_anchor">Atributos de Resposta</a></p>
+</blockquote>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/documentacao/docs/resumo-financeiro"><span class="arrow-prev">← </span><span>Resumo Financeiro</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#solicitação">Solicitação</a><ul class="toc-headings"><li><a href="#requisição">Requisição</a></li><li><a href="#resposta">Resposta</a></li></ul></li><li><a href="#consulta">Consulta</a><ul class="toc-headings"><li><a href="#requisição-1">Requisição</a></li><li><a href="#resposta-1">Resposta</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/documentacao/" class="nav-home"><img src="/documentacao/img/paguelogo-logo.png" alt="" width="66" height="58"/></a><div><h5>API REST</h5><a href="/documentacao/docs/en/introducao.html">Documentação</a></div><div><h5>Mais</h5><a href="https://www.paguelogo.com.br">Página Inicial</a><a href="https://www.paguelogo.com.br/sistema">Sistema</a></div></section><section class="copyright">Copyright © 2020 Paguelogo</section></footer></div></body></html>
